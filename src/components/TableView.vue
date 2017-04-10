@@ -36,6 +36,7 @@
 					    id:id
 					}
 				})
+				this.$emit('navigator')
 			}
 		}
 	}

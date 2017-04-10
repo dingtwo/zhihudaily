@@ -1,38 +1,17 @@
 <template>
 	<div id="app">
+		<!-- 导航 -->
 		<nav-bar v-on:drawer="drawerHandle"></nav-bar>
-		<div id="drawer" v-show="drawer_show" @click="hideDrawer">
-			<div class="drawer_wrap"><el-row>
-				<el-col :span="15">
-					<div class="head">
-						<div class="login"><i></i><span>请登录</span></div>
-						<div class="handle">
-							<div>
-								<i>✨</i>
-								<span>我的收藏</span>
-							</div>
-							<div>
-								<i>✨</i>
-								<span>离线下载</span>
-							</div>
-						</div>
-					</div>
-					<el-menu mode="vertical" default-active="1" class="el-menu-vertical-demo">
-						<el-menu-item-group title="首页">
-							<el-menu-item v-for="(item, index) in list" index="'index'" :key="index">{{item.name}}<i class="el-icon-message"></i></el-menu-item>
-						</el-menu-item-group>
-
-					</el-menu>
-				</el-col>
-			</el-row></div>
-
-		</div>
+		<!-- 内容 -->
 		<router-view></router-view>
+		<!-- 抽屉 -->
+		<drawer :drawer_show="drawer_show"></drawer>
 	</div>
 </template>
 
 <script>
 	import Nav from '@/components/Nav'
+	import Drawer from '@/components/Drawer'
 	import {Menu, MenuItem, MenuItemGroup, Row, Col} from 'element-ui'
 	import axios from 'axios'
 	export default {
@@ -43,7 +22,8 @@
 			'el-menu-item-group': MenuItemGroup,
 			'el-menu-item': MenuItem,
 			'el-row': Row,
-			'el-col': Col
+			'el-col': Col,
+			Drawer
 		},
 		data() {
 		    return {

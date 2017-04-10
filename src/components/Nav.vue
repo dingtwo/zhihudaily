@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div v-on:navigator="navigatorHandle">
 		<nav v-show="isIndex">
 			<i class="menu" @click="showDrawer"></i>
 			<span class="index">首页</span>
@@ -31,6 +31,9 @@
 //				Vue.set(this.$root, drawer_show, )
 				console.log(this.$root)
 				this.$emit('drawer')
+			},
+			navigatorHandle: function () {
+				this.isIndex = false
 			}
 		}
 	}

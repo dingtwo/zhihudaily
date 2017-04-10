@@ -9,7 +9,14 @@ export default new Router({
 	routes: [
 		{
 			path: '/',
-			name: 'Content',
+			// 暂时使用重定向解决, 考虑其他方案
+			redirect: to => {
+				return '/themes/1'
+			}
+		},
+		{
+			path: '/themes/:id',
+			name: 'content',
 			component: Content
 		},
 		{
