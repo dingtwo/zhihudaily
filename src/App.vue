@@ -19,7 +19,7 @@
 					</div>
 					<el-menu mode="vertical" default-active="1" class="el-menu-vertical-demo">
 						<el-menu-item-group title="首页">
-							<el-menu-item v-for="(item, index) in list" index="'index'">{{item.name}}<i class="el-icon-message"></i></el-menu-item>
+							<el-menu-item v-for="(item, index) in list" index="'index'" :key="index">{{item.name}}<i class="el-icon-message"></i></el-menu-item>
 						</el-menu-item-group>
 
 					</el-menu>

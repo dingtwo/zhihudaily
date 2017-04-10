@@ -17,13 +17,24 @@
 	        axios.get(`/zhihu/news/${this.$route.params.id}`).then(
 				(res) => {
 				    console.log(res.data)
-					this.data = res.data
+					//图片走代理
+					res.data.body = res.data.body.replace(/src="([^"]+)"/g,  function (match, url) {
+						let nurl = url.replace(/http(s?):\/\/pic/, "pic");
+						let newUrl = 'src="https://images.weserv.nl/?url=' + nurl+'"';
+						return newUrl
+					});
+					 this.data = res.data
+//					console.log(this.data.body)
 				},
 				(err) => {
 				    console.log(err)
 				}
 			)
+		},
+		mounted() {
+
 		}
+
 	}
 </script>
 

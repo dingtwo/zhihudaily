@@ -1,12 +1,15 @@
 <template>
 	<div>
-		<nav>
+		<nav v-show="isIndex">
 			<i class="menu" @click="showDrawer"></i>
 			<span class="index">首页</span>
 			<span class="note">提醒</span>
 			<i class="more"></i>
 		</nav>
-
+		<nav v-show="!isIndex">
+			<i class="back"></i>
+			<span>分享</span>
+		</nav>
 	</div>
 </template>
 
@@ -16,6 +19,11 @@
 	export default {
 		name: 'nav-bar',
 		components: {
+		},
+		data() {
+		  	return {
+		  	    isIndex: true
+			}
 		},
 		methods: {
 		    showDrawer: function () {
@@ -44,6 +52,15 @@
 	}
 
 	.menu {
+		margin-left: 20px;
+		width: 40px;
+		height: 40px;
+		background: url("../assets/menu.png") 0 no-repeat;
+		/*flex:0 0 40px;*/
+		flex-basis: 40px;
+		margin-right: 5px;
+	}
+	.back{
 		margin-left: 20px;
 		width: 40px;
 		height: 40px;

@@ -58,9 +58,13 @@
 			let _this = this;
 			this.$el.querySelectorAll('.img').forEach(
 				(item, index) => {
-				    console.log(item);
+				    console.log(_this.stories[index]['image']);
 				    let url = _this.stories[index]['image'].replace(/^https?:\/\/pic/, 'https://images.weserv.nl/?url=pic')
-				    item.style.backgroundImage = `url("${url}")`;
+					console.log(url);
+					_this.$nextTick(function () {
+						item.style.backgroundImage = `url("${url}")`;
+
+					})
 				}
 			)
 		}
@@ -89,6 +93,8 @@
 		width: 100%;
 		height: 200px;
 		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
 		/*background-*/
 		/*background-size: 100% 200%;*/
 	}
