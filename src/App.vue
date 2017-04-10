@@ -5,24 +5,19 @@
 		<!-- 内容 -->
 		<router-view></router-view>
 		<!-- 抽屉 -->
-		<drawer :drawer_show="drawer_show"></drawer>
+		<drawer :drawer_show="drawer_show" :list="list"></drawer>
 	</div>
 </template>
 
 <script>
 	import Nav from '@/components/Nav'
 	import Drawer from '@/components/Drawer'
-	import {Menu, MenuItem, MenuItemGroup, Row, Col} from 'element-ui'
+
 	import axios from 'axios'
 	export default {
 		name: 'app',
 		components: {
-			'nav-bar': Nav,
-			'el-menu': Menu,
-			'el-menu-item-group': MenuItemGroup,
-			'el-menu-item': MenuItem,
-			'el-row': Row,
-			'el-col': Col,
+			'nav-bar':Nav,
 			Drawer
 		},
 		data() {

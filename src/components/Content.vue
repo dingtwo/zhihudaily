@@ -1,6 +1,6 @@
 <template>
 	<div class="content">
-		<loop :stories="top_stories"></loop>
+		<loop :stories="top_stories" v-cloak></loop>
 		<table-view :dataSource="data_source"></table-view>
 	</div>
 </template>
@@ -16,7 +16,6 @@
 		},
 		data () {
 			return {
-				msg: 'Welcome to Your Vue.js App',
 				top_stories: [],
 				data_source: {
 					sections: []

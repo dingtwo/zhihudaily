@@ -3,10 +3,19 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import Vuex from 'Vuex'
 // import './common/css/base.css'
 // import '../node_modules/bootstrap/dist/css/bootstrap.css'
 
 Vue.config.productionTip = false
+
+
+// 注意要先定义filter
+// 自定义filter设置图片代理, 防止图片403
+Vue.filter('proxyImg', (url) => {
+	return url.replace(/^http(s)?:\/\/pic/, 'https://images.weserv.nl/?url=pic')
+})
+
 
 /* eslint-disable no-new */
 new Vue({
@@ -15,8 +24,5 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
+Vue.use(Vuex);
 
-//自定义filter设置图片代理, 防止图片403
-Vue.filter('proxyImg', (url) => {
-	return url.replace(/^https?:\/\/pic/, 'https://images.weserv.nl/?url=pic')
-})

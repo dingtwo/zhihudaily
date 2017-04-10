@@ -1,5 +1,5 @@
 <template>
-	<div id="drawer" v-show="drawer_show" @click="hideDrawer">
+	<div id="drawer" v-show="show" @click="hideClick">
 		<div class="drawer_wrap">
 			<el-row>
 				<el-col :span="15">
@@ -31,12 +31,42 @@
 </template>
 
 <script>
+	import {Menu, MenuItem, MenuItemGroup, Row, Col} from 'element-ui'
 	export default {
 	    name: 'drawer',
 		props: {
 	        drawer_show: {
 	            type: Boolean,
 				default: false
+			},
+			list: {
+	            type: Array
+			}
+		},
+		data() {
+	      	return {
+	      	    show: false
+			}
+		},
+		created() {
+	      	this.show = this.$props.drawer_show;
+	      	console.log(this.$props)
+		},
+		computed: {
+	      	show: function () {
+				return this.$props.drawer_show
+			}
+		},
+		components: {
+			'el-menu': Menu,
+			'el-menu-item-group': MenuItemGroup,
+			'el-menu-item': MenuItem,
+			'el-row': Row,
+			'el-col': Col,
+		},
+		methods: {
+	        hideClick: function () {
+				this.show = false
 			}
 		}
 	}
