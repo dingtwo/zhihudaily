@@ -1,6 +1,6 @@
 <template>
 	<div class="content">
-		<loop :stories="top_stories" v-cloak></loop>
+		<loop :stories="top_stories" ></loop>
 		<table-view :dataSource="data_source"></table-view>
 	</div>
 </template>

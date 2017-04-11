@@ -1,41 +1,52 @@
 <template>
 	<div id="app">
 		<!-- 导航 -->
-		<nav-bar v-on:drawer="drawerHandle"></nav-bar>
-		<!-- 内容 -->
-		<router-view></router-view>
+		<!--<nav-bar v-on:drawer="drawerHandle"></nav-bar>-->
+		<nav-tem :isIndex="true">
+			<span class="left" slot="left">
+				<i class="menu"></i>
+				<span class="title">首页</span>
+			</span>
+			<span slot="right" class="right">
+				<i class="noti"></i>
+				<i class="more"></i>
+			</span>
+		</nav-tem>
+		<!-- 轮播图 -->
+		<loop :stories="topStories"></loop>
+		<!-- 内容列表 -->
+
 		<!-- 抽屉 -->
 		<drawer :drawer_show="drawer_show" :list="list"></drawer>
 	</div>
 </template>
 
 <script>
-	import Nav from '@/components/Nav'
+	import NavTem from '@/components/NavTem'
+	import Loop from '@/components/Loop'
 	import Drawer from '@/components/Drawer'
 
-	import axios from 'axios'
+ 	import api from '@/common/api'
+
 	export default {
 		name: 'app',
 		components: {
-			'nav-bar':Nav,
-			Drawer
+			NavTem,
+			Drawer,
+			Loop
 		},
 		data() {
 		    return {
 		        list: [],
-				drawer_show: false
+				drawer_show: false,
+				topStories: []
 			}
 		},
 		created() {
-		    axios.get('/zhihu/themes').then(
-				(res) => {
-				    console.log(res.data)
-					this.list = res.data.others
-				},
-				(err) => {
-				    console.log(err)
-				}
-			)
+
+			api.getIndexData().then((res) => {console.log(res.data)
+				this.topStories = res.data.top_stories;
+			}, (err) => console.log(err))
 		},
 		methods: {
 		    drawerHandle: function () {
@@ -49,7 +60,7 @@
 </script>
 
 <style lang="less">
-	@import "../node_modules/element-ui/lib/theme-default/index.css";
+	@import "../../node_modules/element-ui/lib/theme-default/index.css";
 	#app {
 		font-family: 'Avenir', Helvetica, Arial, sans-serif;
 		-webkit-font-smoothing: antialiased;
@@ -57,7 +68,6 @@
 		/*text-align: center;*/
 		color: #2c3e50;
 	}
-
 	body {
 		margin: 0;
 		padding: 0;

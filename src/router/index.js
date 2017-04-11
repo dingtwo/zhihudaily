@@ -1,23 +1,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Index from '../views/Index'
 import Content from '@/components/Content'
 import Detail from '@/components/Detail'
 
 Vue.use(Router)
 
 export default new Router({
+	//重新配置路由, 相同nav的页面放在一个根路由下
 	routes: [
 		{
 			path: '/',
-			// 暂时使用重定向解决, 考虑其他方案
-			redirect: to => {
-				return '/themes/1'
-			}
-		},
-		{
-			path: '/themes/:id',
-			name: 'content',
-			component: Content
+			children: [
+				{
+					path: "/",
+					component: Index
+				},
+				{
+					path: "/themes/:id",
+					name: 'content',
+					component: Content
+				}
+			]
 		},
 		{
 			path: '/detail/:id',

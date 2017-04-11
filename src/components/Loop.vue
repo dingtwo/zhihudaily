@@ -1,9 +1,9 @@
 <template>
 	<div class="loop">
 		<el-carousel :interval="3000" height="200px" indicator-position="none">
-			<el-carousel-item v-for="item in stories" v-bind:key="item">
+			<el-carousel-item v-for="(item, index) in stories" v-bind:key="index">
 				<!--<img :src="item.image | proxyImg" alt="item.id">-->
-				<div class="img"></div>
+				<div class="img" :style="{backgroundImage: 'url('+proxyImg(item['image'])+')'}"></div>
 				<p>{{ item.title }}</p>
 			</el-carousel-item>
 		</el-carousel>
@@ -44,6 +44,7 @@
 						alt: '文字'
 					}
 				]
+
 			}
 		},
 		components: {
@@ -52,21 +53,15 @@
 		},
 		created() {
 			console.log(this.stories)
+//			this.url = ;
+		},
+		methods: {
+		 	proxyImg: function (str) {
+				return str.replace(/^https?:\/\/(?=pic)/, 'https://images.weserv.nl/?url=');
+			}
 		},
 		mounted() {
-		    console.log(this.$el)
-			let _this = this;
-			this.$el.querySelectorAll('.img').forEach(
-				(item, index) => {
-				    console.log(_this.stories[index]['image']);
-				    let url = _this.stories[index]['image'].replace(/^https?:\/\/pic/, 'https://images.weserv.nl/?url=pic')
-					console.log(url);
-					_this.$nextTick(function () {
-						item.style.backgroundImage = `url("${url}")`;
 
-					})
-				}
-			)
 		}
 
 	}
@@ -82,7 +77,7 @@
 		margin-top: 64px;
 	}
 	.el-carousel__item img {
-		width: 100%;
+		/*width: 100%;*/
 		/*height: 200px;*/
 	}
 	.el-carousel__item p{
