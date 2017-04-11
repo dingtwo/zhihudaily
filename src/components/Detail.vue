@@ -18,6 +18,7 @@
 				(res) => {
 				    console.log(res.data)
 					//图片走代理
+					console.log('跳转了')
 					res.data.body = res.data.body.replace(/src="([^"]+)"/g,  function (match, url) {
 						let nurl = url.replace(/http(s?):\/\/pic/, "pic");
 						let newUrl = 'src="https://images.weserv.nl/?url=' + nurl+'"';

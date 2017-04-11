@@ -3,13 +3,15 @@
 	<div>
 		<div class="section" v-for="section in dataSource.sections">
 			<div class="header-view">
-				<span class="header-title">{{ section.header.title }}</span>
+				<span class="header-title">{{ section.header }}</span>
 			</div>
 			<div class="row" v-for="row in section.rows">
-				<div class="cell" @click="push(row.id)">
-					<p>{{ row.title }}</p>
-					<img :src="row.images[0] | proxyImg" alt="">
-				</div>
+				<router-link :to="{name: 'detail', params: {id: row.id}}">
+					<div class="cell">
+						<p>{{ row.title }}</p>
+						<img :src="row.images[0] | proxyImg" alt="">
+					</div>
+				</router-link>
 			</div>
 		</div>
 	</div>
@@ -29,32 +31,34 @@
 			}
 		},
 		methods: {
-		    push: function (id) {
-				this.$router.push({
-					name: 'detail',
-					params: {
-					    id:id
-					}
-				})
-				this.$emit('navigator')
-			}
+//		    push: function (id) {
+//				this.$router.push({
+//					name: 'detail',
+//					params: {
+//					    id:id
+//					}
+//				})
+////				this.$emit('navigator')
+//			}
 		}
 	}
 </script>
 
 <style lang="less" scoped>
-.section{
-	background-color: #f3f3f3;
-}
-.section .header-view{
-	font-size: 14px;
-	color: #707070;
-	padding-top: 10px;
-	.header-title{
-		margin-left: 15px;
+	.section {
+		background-color: #f3f3f3;
 	}
-}
-	.cell{
+
+	.section .header-view {
+		font-size: 14px;
+		color: #707070;
+		padding-top: 10px;
+		.header-title {
+			margin-left: 15px;
+		}
+	}
+
+	.cell {
 		background-color: #ffffff;
 		box-shadow: 1px 1px 3px #dddddd;
 		margin: 10px;
@@ -65,11 +69,11 @@
 		font-weight: bold;
 		display: flex;
 		justify-content: space-between;
-		p{
+		p {
 			margin: 0;
 			padding: 0;
 		}
-		img{
+		img {
 			margin-left: 10px;
 			width: 80px;
 			height: 80px;

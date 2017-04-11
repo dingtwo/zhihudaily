@@ -1,7 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import Index from './views/Index'
+import App from './views/App'
 import router from './router'
 import Vuex from 'Vuex'
 // import './common/css/base.css'
@@ -21,8 +21,8 @@ Vue.filter('proxyImg', (url) => {
 new Vue({
   el: '#app',
   router,
-  template: '<Index/>',
-  components: { Index }
+  template: '<App/>',
+  components: { App }
 })
 Vue.use(Vuex);
 

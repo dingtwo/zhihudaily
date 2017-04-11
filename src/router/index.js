@@ -11,17 +11,13 @@ export default new Router({
 	routes: [
 		{
 			path: '/',
-			children: [
-				{
-					path: "/",
-					component: Index
-				},
-				{
-					path: "/themes/:id",
-					name: 'content',
-					component: Content
-				}
-			]
+			name: 'index',
+			component: Index
+		},
+		{
+			path: "/themes/:id",
+			name: 'content',
+			component: Content
 		},
 		{
 			path: '/detail/:id',

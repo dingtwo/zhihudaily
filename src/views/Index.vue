@@ -15,9 +15,10 @@
 		<!-- 轮播图 -->
 		<loop :stories="topStories"></loop>
 		<!-- 内容列表 -->
-
+		<table-view :dataSource="dataSource"></table-view>
 		<!-- 抽屉 -->
 		<drawer :drawer_show="drawer_show" :list="list"></drawer>
+
 	</div>
 </template>
 
@@ -25,7 +26,7 @@
 	import NavTem from '@/components/NavTem'
 	import Loop from '@/components/Loop'
 	import Drawer from '@/components/Drawer'
-
+	import TableView from '@/components/TableView'
  	import api from '@/common/api'
 
 	export default {
@@ -33,19 +34,25 @@
 		components: {
 			NavTem,
 			Drawer,
-			Loop
+			Loop,
+			TableView
 		},
 		data() {
 		    return {
 		        list: [],
 				drawer_show: false,
-				topStories: []
+				topStories: [],
+				dataSource: {
+		            sections: []
+				}
 			}
 		},
 		created() {
 
 			api.getIndexData().then((res) => {console.log(res.data)
 				this.topStories = res.data.top_stories;
+				this.dataSource.sections.push({'header': '今日热闻', 'rows': res.data.stories})
+				console.log(this.dataSource)
 			}, (err) => console.log(err))
 		},
 		methods: {

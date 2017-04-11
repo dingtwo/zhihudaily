@@ -1,6 +1,6 @@
 <template>
 	<div class="loop">
-		<el-carousel :interval="3000" height="200px" indicator-position="none">
+		<el-carousel :interval="3000" height="300px" indicator-position="none">
 			<el-carousel-item v-for="(item, index) in stories" v-bind:key="index">
 				<!--<img :src="item.image | proxyImg" alt="item.id">-->
 				<div class="img" :style="{backgroundImage: 'url('+proxyImg(item['image'])+')'}"></div>
@@ -81,12 +81,18 @@
 		/*height: 200px;*/
 	}
 	.el-carousel__item p{
-		margin: 0;
-		line-height: 200px;
+		position: absolute;
+		bottom: 10px;
+		left: 0;
+		width: 100%;
+		margin: 10px;
+		color: #ffffff;
+		font-size: 20px;
+		/*line-height: 200px;*/
 	}
 	.img{
 		width: 100%;
-		height: 200px;
+		height: 300px;
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position: center;
