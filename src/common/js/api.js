@@ -7,6 +7,9 @@ export default {
 	getIndexData: function () {
 		return axios.get('/zhihu/news/latest')
 	},
+	getMore: function (lastTime) {
+		return axios.get(`/zhihu/news/before/${lastTime}`)
+	},
 	//日报列表
 	getThemes: function () {
 		return axios.get('/zhihu/themes')
