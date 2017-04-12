@@ -15,11 +15,6 @@
 			}
 		},
 		created() {
-
-		},
-		// TODO: 缓存需要处理, 使用 keepalive 后路由id更换也面也不会重新刷新, 暂时在每次缓存页面激活的hook中重新请求数据
-		activated: function () {
-			console.log('重新激活')
 			let lastID = this.$route.params.id;
 			api.getDetail(lastID).then(
 				(res) => {
@@ -29,24 +24,41 @@
 						let newUrl = 'src="https://images.weserv.nl/?url=' + nurl + '"';
 						return newUrl
 					});
-					this.data = res.data
+//					res.data.body = res.data.body.replace(/<div class="img-place-holder">/g, `<div class="img-place-holder"><img src="${this.proxyImg(res.data.image)}">`)
+
 					this.getStyleLink(res.data.css);
+					this.data = res.data
+					console.log(res.data)
 				},
 				(err) => {
 					console.log(err)
 				}
-			)},
+			)
+		},
 		mounted() {
-
+		},
+		beforeRouteLeave(to, from, next) {
+	        this.removeStyleLink();
+	      	next();
 		},
 		methods: {
-	        getStyleLink: (cssUrl) => {
+	        getStyleLink(cssUrl) {
 	            console.log(this)
 				let css = document.querySelector('#css') || document.createElement('link');
 				css.setAttribute('id', 'css');
 				css.setAttribute('href', cssUrl);
 				css.setAttribute('rel', 'stylesheet');
 				document.querySelector('head').appendChild(css);
+				css.onload = function () {
+					console.log('加载完成')
+				}
+			},
+			removeStyleLink() {
+				let css = document.querySelector('#css')
+				document.querySelector('head').removeChild(css);
+			},
+			proxyImg: function (str) {
+				return str.replace(/^https?:\/\/(?=pic)/, 'https://images.weserv.nl/?url=');
 			}
 		}
 
