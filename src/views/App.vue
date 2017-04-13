@@ -1,6 +1,4 @@
 <template>
-	<!--//TODO: 主页缓存, 详情页id不同刷新-->
-
 	<keep-alive include="index">
 		<router-view></router-view>
 	</keep-alive>

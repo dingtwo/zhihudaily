@@ -4,7 +4,8 @@ import Vue from 'vue'
 import App from './views/App'
 import router from './router'
 import Vuex from 'Vuex'
-// import './common/css/base.css'
+
+import './common/css/base.css'
 // import '../node_modules/bootstrap/dist/css/bootstrap.css'
 
 Vue.config.productionTip = false

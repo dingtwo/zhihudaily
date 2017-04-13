@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/views/Index'
+import Theme from '@/views/Theme'
 import Content from '@/components/Content'
 import Detail from '@/views/Detail'
 
@@ -17,8 +18,8 @@ export default new Router({
 		},
 		{
 			path: "/themes/:id",
-			name: 'content',
-			component: Content
+			name: 'theme',
+			component: Theme
 		},
 		{
 			path: '/detail/:id',

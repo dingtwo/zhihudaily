@@ -1,10 +1,10 @@
-<template>
+)<template>
 	<div id="app">
 		<!-- 导航 -->
 		<!--<nav-bar v-on:drawer="drawerHandle"></nav-bar>-->
 		<nav-tem :isIndex="true">
 			<span class="left" slot="left">
-				<i class="menu"></i>
+				<i class="menu" @click="showDrawer"></i>
 				<span class="title">首页</span>
 			</span>
 			<span slot="right" class="right">
@@ -21,7 +21,7 @@
 			<div class="double-bounce2"></div>
 		</div>
 		<!-- 抽屉 -->
-		<drawer :drawer_show="drawer_show" :list="list"></drawer>
+		<drawer :drawer_show="drawer_show" :themes="themes" @hideDrawer="hideDrawer"></drawer>
 
 	</div>
 </template>
@@ -72,7 +72,7 @@
 		},
 		data() {
 			return {
-				list: [],
+				themes: [],
 				drawer_show: false,
 				lastDate: '',
 				loading: false,
@@ -112,6 +112,28 @@
 						// TODO: show错误原因
 					}
 				)
+			},
+			getThemes() {
+			  	return api.getThemes().then(
+					(res) => {
+					    console.log(res.data)
+					    this.themes = res.data.others
+					},
+					(err) => {
+					    console.log(err)
+					}
+				)
+			},
+			showDrawer() {
+				this.getThemes().then(
+					() => {
+						this.drawer_show = true;
+					}
+				);
+
+			},
+			hideDrawer() {
+			  	this.drawer_show = false;
 			},
 			onScroll(event) {
 //				console.log(event);
@@ -164,32 +186,7 @@
 		padding: 0;
 	}
 
-	#drawer {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		z-index: 999;
-		background-color: rgba(102, 102, 102, 0.4);
-		.head {
-			padding: 10px;
-			background-color: #00a2ed;
-			color: #ffffff;
-			font-weight: bold;
-			.login {
-				span {
-					font-size: 18px;
-				}
-			}
-			.handle {
-				margin-top: 20px;
-				display: flex;
-				justify-content: space-between;
-				font-size: 15px;
-			}
-		}
-	}
+
 
 	.spinner {
 		width: 40px;
