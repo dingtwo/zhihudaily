@@ -1,4 +1,5 @@
-)<template>
+)
+<template>
 	<div id="app">
 		<!-- 导航 -->
 		<!--<nav-bar v-on:drawer="drawerHandle"></nav-bar>-->
@@ -23,6 +24,7 @@
 		<!-- 抽屉 -->
 		<drawer :drawer_show="drawer_show" :themes="themes" @hideDrawer="hideDrawer"></drawer>
 
+
 	</div>
 </template>
 
@@ -34,7 +36,7 @@
 	import api from '@/common/js/api'
 	import DateFormat from '@/common/js/DateFormat'
 
-	 // TODO: 放到组件中
+	// TODO: 放到组件中
 
 	//作为一个对象的w和h属性返回视口的尺寸
 	function getViewportSize(w) {
@@ -113,27 +115,29 @@
 					}
 				)
 			},
-			getThemes() {
-			  	return api.getThemes().then(
-					(res) => {
-					    console.log(res.data)
-					    this.themes = res.data.others
-					},
-					(err) => {
-					    console.log(err)
-					}
-				)
-			},
+
 			showDrawer() {
-				this.getThemes().then(
-					() => {
-						this.drawer_show = true;
-					}
-				);
+				let themes = sessionStorage.getItem('themes')
+				if (themes) {
+					this.themes = JSON.parse(themes);
+				} else {
+					api.getThemes().then(
+						(res) => {
+							console.log(res.data)
+							this.themes = res.data.others
+							sessionStorage.setItem('themes', JSON.stringify(res.data.others));
+							this.drawer_show = true;
+						},
+						(err) => {
+							console.log(err)
+						}
+					)
+				}
+				this.drawer_show = true;
 
 			},
 			hideDrawer() {
-			  	this.drawer_show = false;
+				this.drawer_show = false;
 			},
 			onScroll(event) {
 //				console.log(event);
@@ -186,8 +190,6 @@
 		padding: 0;
 	}
 
-
-
 	.spinner {
 		width: 40px;
 		height: 40px;
@@ -234,4 +236,6 @@
 			-webkit-transform: scale(1.0);
 		}
 	}
+
+
 </style>

@@ -1,35 +1,41 @@
 <template>
-	<div id="drawer" v-show="drawer_show">
-		<div class="drawer-wrap">
+	<transition name="slide-fade" v-on:after-enter="afterEnter" v-on:before-leave="beforeLeave">
 
-			<div class="head">
-				<div class="login"><i></i><span>请登录</span></div>
-				<div class="handle">
-					<div>
-						<i>✨</i>
-						<span>我的收藏</span>
-					</div>
-					<div>
-						<i>✨</i>
-						<span>离线下载</span>
+		<div id="drawer" v-show="drawer_show">
+			<div class="drawer-wrap">
+
+				<div class="head">
+					<div class="login"><i></i><span>请登录</span></div>
+					<div class="handle">
+						<div>
+							<i>✨</i>
+							<span>我的收藏</span>
+						</div>
+						<div>
+							<i>✨</i>
+							<span>离线下载</span>
+						</div>
 					</div>
 				</div>
+				<ul class="theme-list">
+					<!--<router-link to="/">-->
+					<li class="home" @click="toIndex">🏠&nbsp&nbsp&nbsp首页</li>
+					<!--</router-link>-->
+					<router-link v-for="theme in themes" :to="{ name: 'theme', params: { id: theme.id }}">
+						<li :class="{active: $route.params.id == theme.id}">
+							<span>{{theme.name}}</span><span class="icon" :class="{add: true, to: false}"></span>
+						</li>
+					</router-link>
+				</ul>
+
 			</div>
-			<ul class="theme-list">
-				<router-link to="/">
-					<li class="home">🏠&nbsp&nbsp&nbsp首页</li>
-				</router-link>
-				<router-link v-for="theme in themes" :to="{ name: 'theme', params: { id: theme.id }}">
-					<li>
-						<span>{{theme.name}}</span><span class="icon" :class="{add: true, to: false}"></span>
-					</li>
-				</router-link>
-			</ul>
+			<!--<transition name="fade">-->
+
+			<div class="drawer-mask" @click="hideClick"></div>
+			<!--</transition>-->
 
 		</div>
-		<div class="drawer-mask" @click="hideClick"></div>
-
-	</div>
+	</transition>
 </template>
 
 <script>
@@ -47,27 +53,46 @@
 		},
 		data() {
 			return {
-				show: false
+				show: false,
+				showMask: false
 			}
 		},
 		created() {
 
 		},
-//		computed: {
-//			show: function () {
-//				return this.$props.drawer_show
-//			}
-//		},
+		computed: {
+			show: function () {
+				return this.$props.drawer_show
+			},
+		},
 		components: {},
+
 		methods: {
 			hideClick() {
 				this.$emit('hideDrawer')
+			},
+			toIndex() {
+				if (this.$route.path === '/') {
+					this.hideClick()
+				} else {
+					this.$router.push({
+						name: 'index'
+					})
+				}
+			},
+			beforeEnter(el) {
+			},
+			afterEnter(el) {
+			    el.querySelector('.drawer-mask').style.display = 'block'
+			},
+			beforeLeave(el) {
+				el.querySelector('.drawer-mask').style.display = 'none'
 			}
 		}
 	}
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 	#drawer {
 		display: flex;
 		flex-direction: row;
@@ -78,7 +103,7 @@
 		left: 0;
 		z-index: 99;
 		.drawer-wrap {
-			flex: 2;
+			flex-basis: 300px;
 			background-color: #ffffff;
 			.head {
 				padding: 10px;
@@ -99,34 +124,60 @@
 				}
 
 			}
-			li{
+			li {
 				padding: 12px;
 				font-weight: 500;
 				color: #1F1F1F;
 				display: flex;
 				flex-direction: row;
 				justify-content: space-between;
-				.icon{
+				.icon {
 					flex-basis: 40px;
 				}
-				.add::after{
+				.add::after {
 					content: '+';
 					color: #D0D0D0;
 				}
-				.to::after{
+				.to::after {
 					content: '>';
 					color: #D0D0D0;
 				}
 			}
-			.home{
-				background-color: #F0F0F0;
+			.home {
+				/*background-color: #F0F0F0;*/
 				color: #00A2ED;
+			}
+			.active {
+				background-color: #f0f0f0;
 			}
 		}
 		.drawer-mask {
 			flex: 1;
+			display: none;
+			/*display: block;*/
 			background-color: rgba(54, 54, 54, 0.69);
 		}
 
+
+	}
+
+	/*.fade-enter-active, .fade-leave-active {*/
+	/*transition: opacity .5s*/
+	/*}*/
+
+	/*.fade-enter, .fade-leave-active {*/
+	/*opacity: 0*/
+	/*}*/
+	.slide-fade-enter-active {
+		transition: all .2s ease-in;
+	}
+
+	.slide-fade-leave-active {
+		transition: all .2s ease-out;
+	}
+
+	.slide-fade-enter, .slide-fade-leave-active {
+		transform: translateX(-300px);
+		/*opacity: 0;*/
 	}
 </style>

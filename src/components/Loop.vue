@@ -22,28 +22,7 @@
 		},
 		data() {
 			return {
-				imgs: [
-					{
-						url: 'https://unsplash.it/500/400',
-						alt: '文字'
-					},
-					{
-						url: 'https://placehold.it/500x400?text=二',
-						alt: '文字'
-					},
-					{
-						url: 'https://placehold.it/500x400?text=三',
-						alt: '文字'
-					},
-					{
-						url: 'https://placehold.it/500x400?text=four',
-						alt: '文字'
-					},
-					{
-						url: 'https://placehold.it/500x400?text=five',
-						alt: '文字'
-					}
-				]
+
 
 			}
 		},
