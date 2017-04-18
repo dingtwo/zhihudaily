@@ -3,7 +3,7 @@
  */
 import axios from 'axios'
 export default {
-	// TODO: 使用sessionStorage缓存
+	// TODO: 使用sessionStorage做缓存
 	//首页
 	getIndexData: function () {
 		return axios.get('/zhihu/news/latest')

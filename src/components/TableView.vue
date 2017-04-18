@@ -9,7 +9,7 @@
 				<router-link :to="{name: 'detail', params: {id: row.id}}">
 					<div class="cell">
 						<p>{{ row.title }}</p>
-						<img :src="row.images[0] | proxyImg" alt="">
+						<img v-if="row.images" :src="row.images[0] | proxyImg" alt="">
 					</div>
 				</router-link>
 			</div>
@@ -20,7 +20,7 @@
 <script>
 	//dataSource数据结构
 	/**
-	 * {sections: [{header: {title:'标题', img:'http://xx.jpg'},rows: []}, {header: '',rows: []}, {header: '',rows: []}]}
+	 * {sections: [{header: "title" rows: []}, {header: '',rows: []}, {header: '',rows: []}]}
 	 *
 	 */
 	export default {
@@ -75,7 +75,9 @@
 		}
 		img {
 			margin-left: 10px;
-			width: 80px;
+			//防止图片尺寸非正方形的变形
+			/*flex-basis: 80px;*/
+			flex: 0 0 80px;
 			height: 80px;
 		}
 	}

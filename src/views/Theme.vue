@@ -13,34 +13,36 @@
 		</nav-tem>
 
 
-		<div class="sk-circle" v-if="loading">
-			<div class="sk-circle1 sk-child"></div>
-			<div class="sk-circle2 sk-child"></div>
-			<div class="sk-circle3 sk-child"></div>
-			<div class="sk-circle4 sk-child"></div>
-			<div class="sk-circle5 sk-child"></div>
-			<div class="sk-circle6 sk-child"></div>
-			<div class="sk-circle7 sk-child"></div>
-			<div class="sk-circle8 sk-child"></div>
-			<div class="sk-circle9 sk-child"></div>
-			<div class="sk-circle10 sk-child"></div>
-			<div class="sk-circle11 sk-child"></div>
-			<div class="sk-circle12 sk-child"></div>
-		</div>
+		<!--<div class="sk-circle" v-if="loading">-->
+			<!--<div class="sk-circle1 sk-child"></div>-->
+			<!--<div class="sk-circle2 sk-child"></div>-->
+			<!--<div class="sk-circle3 sk-child"></div>-->
+			<!--<div class="sk-circle4 sk-child"></div>-->
+			<!--<div class="sk-circle5 sk-child"></div>-->
+			<!--<div class="sk-circle6 sk-child"></div>-->
+			<!--<div class="sk-circle7 sk-child"></div>-->
+			<!--<div class="sk-circle8 sk-child"></div>-->
+			<!--<div class="sk-circle9 sk-child"></div>-->
+			<!--<div class="sk-circle10 sk-child"></div>-->
+			<!--<div class="sk-circle11 sk-child"></div>-->
+			<!--<div class="sk-circle12 sk-child"></div>-->
+		<!--</div>-->
 
 		<div class="content">
 			<div class="img" :style="{backgroundImage: 'url('+proxyImg(theme.background)+')'}"></div>
+			<table-view :dataSource="dataSource"></table-view>
 		</div>
 		<!-- 抽屉 -->
 		<drawer :drawer_show="drawer_show" :themes="themes" @hideDrawer="hideDrawer"></drawer>
-		<!--<theme-detail :theme="theme"></theme-detail>-->
+
+
 	</div>
 </template>
 
 <script>
 	import NavTem from '@/components/NavTem'
 	import Drawer from '@/components/Drawer'
-	import ThemeDetail from '@/components/ThemeDetail'
+	import TableView from '@/components/TableView'
 
 	import api from '@/common/js/api'
 
@@ -56,7 +58,10 @@
 		  	    theme: {},
 				drawer_show: false,
 				themes: [],
-				loading: true
+				loading: true,
+				dataSource: {
+		  	        sections: []
+				}
 			}
 		},
 		created() {
@@ -72,7 +77,7 @@
 			// 可以访问组件实例 `this`
 			console.log('全体注意, 要跳转了');
 			this.drawer_show = false;
-
+			this.dataSource.sections = [];
 			this.getData(to.path.substr(8));
 			next();
 		},
@@ -84,9 +89,14 @@
 		      	 id = id || this.$route.params.id;
 				this.loading = true;
 				api.getThemeDetail(id).then((res) => {
-					console.log(res);
+//					console.log(res);
 					this.theme = res.data
 					this.loading = false
+					this.dataSource.sections.push({
+						"header": "不知道",
+						"rows": res.data.stories
+					})
+				console.log(this.dataSource)
 				})
 			},
 		    // TODO: 这个地方应该放在子组件内
@@ -97,10 +107,11 @@
 				} else {
 					api.getThemes().then(
 						(res) => {
-							console.log(res.data)
+//							console.log(res.data)
 							this.themes = res.data.others
 							sessionStorage.setItem('themes', JSON.stringify(res.data.others));
 							this.drawer_show = true;
+
 						},
 						(err) => {
 							console.log(err)
@@ -117,7 +128,7 @@
 		components: {
 		    NavTem,
 			Drawer,
-			ThemeDetail
+			TableView
 		}
 	}
 </script>
