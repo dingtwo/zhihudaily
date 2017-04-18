@@ -2,8 +2,9 @@
 	<!-- 仿tableView, headerView, footerView cell -->
 	<div>
 		<div class="section" v-for="section in dataSource.sections">
-			<div class="header-view">
+			<div class="header-view" @click="toEditors">
 				<span class="header-title">{{ section.header }}</span>
+				<img class="avatar" alt="" v-for="editor in section.editors" :src="editor.avatar | proxyImg">
 			</div>
 			<div class="row" v-for="row in section.rows">
 				<router-link :to="{name: 'detail', params: {id: row.id}}">
@@ -40,6 +41,15 @@
 //				})
 ////				this.$emit('navigator')
 //			}
+			toEditors() {
+				console.log(this.$route.name)
+				if (this.$route.name === 'index') return false;
+				sessionStorage.setItem('editors', JSON.stringify(this.dataSource.sections[0].editors));
+				this.$router.push({
+					name: 'editors',
+				})
+
+			}
 		}
 	}
 </script>
@@ -53,8 +63,17 @@
 		font-size: 14px;
 		color: #707070;
 		padding-top: 10px;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
 		.header-title {
 			margin-left: 15px;
+		}
+		.avatar{
+			width: 30px;
+			height: 30px;
+			border-radius: 15px;
+			margin-left: 10px;
 		}
 	}
 
@@ -78,6 +97,7 @@
 			//防止图片尺寸非正方形的变形
 			/*flex-basis: 80px;*/
 			flex: 0 0 80px;
+			max-width: 80px;
 			height: 80px;
 		}
 	}

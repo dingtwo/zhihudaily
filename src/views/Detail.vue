@@ -1,10 +1,16 @@
 <template>
-	<div class="detail">
-		<div v-html="data.body"></div>
+	<div>
+		<nav-tem>
+		<span slot="left" class="left">
+			<i class="back" @click="$router.go(-1)"></i>
+		</span>
+		</nav-tem>
+		<div class="detail" v-html="data.body"></div>
 	</div>
 </template>
 
 <script>
+	import NavTem from '@/components/NavTem'
 	import api from '@/common/js/api'
 
 	export default {
@@ -13,6 +19,9 @@
 	      	return {
 	      	    data: {}
 			}
+		},
+		components: {
+	      	NavTem
 		},
 		created() {
 			let lastID = this.$route.params.id;

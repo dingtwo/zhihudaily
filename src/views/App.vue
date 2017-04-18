@@ -1,5 +1,5 @@
 <template>
-	<keep-alive include="index">
+	<keep-alive exclude="detail">
 		<router-view></router-view>
 	</keep-alive>
 </template>

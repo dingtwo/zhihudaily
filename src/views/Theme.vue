@@ -89,14 +89,15 @@
 		      	 id = id || this.$route.params.id;
 				this.loading = true;
 				api.getThemeDetail(id).then((res) => {
-//					console.log(res);
+					console.log(res);
 					this.theme = res.data
 					this.loading = false
 					this.dataSource.sections.push({
-						"header": "不知道",
-						"rows": res.data.stories
+						"header": "主编",
+						"rows": res.data.stories,
+						editors: res.data.editors
 					})
-				console.log(this.dataSource)
+//				console.log(this.dataSource)
 				})
 			},
 		    // TODO: 这个地方应该放在子组件内

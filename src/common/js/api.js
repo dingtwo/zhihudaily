@@ -22,4 +22,5 @@ export default {
 	getThemeDetail: function (id) {
 		return axios.get(`/zhihu/theme/${id}`)
 	}
+	// http://news-at.zhihu.com/api/4/editor/79/profile-page/ios
 }
