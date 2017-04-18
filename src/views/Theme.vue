@@ -306,7 +306,7 @@
 	}
 
 	.content {
-		margin-top: 64px;
+		margin-top: 60px;
 		display: flex;
 		flex-direction: column;
 		.img {

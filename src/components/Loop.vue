@@ -53,7 +53,7 @@
 	@import "../../node_modules/element-ui/lib/theme-default/index.css";
 
 	.loop{
-		margin-top: 64px;
+		margin-top: 60px;
 	}
 	.el-carousel__item img {
 		/*width: 100%;*/
