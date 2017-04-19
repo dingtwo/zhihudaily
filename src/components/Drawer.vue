@@ -21,11 +21,11 @@
 					<!--<router-link to="/">-->
 					<li class="home" @click="toIndex">🏠&nbsp&nbsp&nbsp首页</li>
 					<!--</router-link>-->
-					<router-link v-for="theme in themes" :to="{ name: 'theme', params: { id: theme.id }}">
-						<li :class="{active: $route.params.id == theme.id}">
-							<span>{{theme.name}}</span><span class="icon" :class="{add: true, to: false}"></span>
-						</li>
-					</router-link>
+					<!--<router-link v-for="theme in themes" :to="{ name: 'theme', params: { id: theme.id }}">-->
+					<li v-for="theme in themes" :class="{active: $route.params.id == theme.id}" @click="push(theme.id)">
+						<span>{{theme.name}}</span><span class="icon" :class="{add: true, to: false}"></span>
+					</li>
+
 				</ul>
 
 			</div>
@@ -71,9 +71,8 @@
 				this.$emit('hideDrawer')
 			},
 			toIndex() {
-				if (this.$route.path === '/') {
-					this.hideClick()
-				} else {
+				this.hideClick()
+				if (!this.$route.path === '/') {
 					this.$router.push({
 						name: 'index'
 					})
@@ -86,7 +85,23 @@
 			},
 			beforeLeave(el) {
 				el.querySelector('.drawer-mask').style.display = 'none'
+			},
+			push(id) {
+			    this.hideClick()
+				this.$router.push({
+					name: 'theme',
+					params: {
+					    id: id
+					}
+				})
+
 			}
+//			beforeRouteLeave (to, from, next) {
+//				// 导航离开该组件的对应路由时调用
+//				// 可以访问组件实例 `this`
+//				this.hideClick();
+//				next()
+//			}
 		}
 	}
 </script>

@@ -14,26 +14,24 @@
 
 
 		<!--<div class="sk-circle" v-if="loading">-->
-			<!--<div class="sk-circle1 sk-child"></div>-->
-			<!--<div class="sk-circle2 sk-child"></div>-->
-			<!--<div class="sk-circle3 sk-child"></div>-->
-			<!--<div class="sk-circle4 sk-child"></div>-->
-			<!--<div class="sk-circle5 sk-child"></div>-->
-			<!--<div class="sk-circle6 sk-child"></div>-->
-			<!--<div class="sk-circle7 sk-child"></div>-->
-			<!--<div class="sk-circle8 sk-child"></div>-->
-			<!--<div class="sk-circle9 sk-child"></div>-->
-			<!--<div class="sk-circle10 sk-child"></div>-->
-			<!--<div class="sk-circle11 sk-child"></div>-->
-			<!--<div class="sk-circle12 sk-child"></div>-->
+		<!--<div class="sk-circle1 sk-child"></div>-->
+		<!--<div class="sk-circle2 sk-child"></div>-->
+		<!--<div class="sk-circle3 sk-child"></div>-->
+		<!--<div class="sk-circle4 sk-child"></div>-->
+		<!--<div class="sk-circle5 sk-child"></div>-->
+		<!--<div class="sk-circle6 sk-child"></div>-->
+		<!--<div class="sk-circle7 sk-child"></div>-->
+		<!--<div class="sk-circle8 sk-child"></div>-->
+		<!--<div class="sk-circle9 sk-child"></div>-->
+		<!--<div class="sk-circle10 sk-child"></div>-->
+		<!--<div class="sk-circle11 sk-child"></div>-->
+		<!--<div class="sk-circle12 sk-child"></div>-->
 		<!--</div>-->
 
 		<div class="content">
 			<div class="img" :style="{backgroundImage: 'url('+proxyImg(theme.background)+')'}"></div>
 			<table-view :dataSource="dataSource"></table-view>
 		</div>
-		<!-- 抽屉 -->
-		<drawer :drawer_show="drawer_show" :themes="themes" @hideDrawer="hideDrawer"></drawer>
 
 
 	</div>
@@ -41,7 +39,7 @@
 
 <script>
 	import NavTem from '@/components/NavTem'
-	import Drawer from '@/components/Drawer'
+
 	import TableView from '@/components/TableView'
 
 	import api from '@/common/js/api'
@@ -54,29 +52,26 @@
 //			}
 		},
 		data() {
-		  	return {
-		  	    theme: {},
-				drawer_show: false,
+			return {
+				theme: {},
 				themes: [],
 				loading: true,
 				dataSource: {
-		  	        sections: []
+					sections: []
 				}
 			}
 		},
 		created() {
 			this.getData();
 		},
-		computed: {
-
-		},
+		computed: {},
 		beforeRouteUpdate (to, from, next) {
 			// 在当前路由改变，但是该组件被复用时调用
 			// 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
 			// 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
 			// 可以访问组件实例 `this`
 			console.log('全体注意, 要跳转了');
-			this.drawer_show = false;
+			this.$emit('hideDrawer')
 			this.dataSource.sections = [];
 			this.getData(to.path.substr(8));
 			next();
@@ -85,8 +80,8 @@
 			proxyImg: function (str) {
 				return str.replace(/^https?:\/\/(?=p)/, 'https://images.weserv.nl/?url=');
 			},
-		    getData(id) {
-		      	 id = id || this.$route.params.id;
+			getData(id) {
+				id = id || this.$route.params.id;
 				this.loading = true;
 				api.getThemeDetail(id).then((res) => {
 					console.log(res);
@@ -100,35 +95,14 @@
 //				console.log(this.dataSource)
 				})
 			},
-		    // TODO: 这个地方应该放在子组件内
+			// TODO: 这个地方应该放在子组件内
 			showDrawer() {
-				let themes = sessionStorage.getItem('themes')
-				if (themes) {
-					this.themes = JSON.parse(themes);
-				} else {
-					api.getThemes().then(
-						(res) => {
-//							console.log(res.data)
-							this.themes = res.data.others
-							sessionStorage.setItem('themes', JSON.stringify(res.data.others));
-							this.drawer_show = true;
 
-						},
-						(err) => {
-							console.log(err)
-						}
-					)
-				}
-				this.drawer_show = true;
-
-			},
-			hideDrawer() {
-				this.drawer_show = false;
-			},
+			    this.$emit('showDrawer');
+			}
 		},
 		components: {
-		    NavTem,
-			Drawer,
+			NavTem,
 			TableView
 		}
 	}

@@ -20,17 +20,12 @@
 			<div class="double-bounce1"></div>
 			<div class="double-bounce2"></div>
 		</div>
-		<!-- 抽屉 -->
-		<drawer :drawer_show="drawer_show" :themes="themes" @hideDrawer="hideDrawer"></drawer>
-
-
 	</div>
 </template>
 
 <script>
 	import NavTem from '@/components/NavTem'
 	import Loop from '@/components/Loop'
-	import Drawer from '@/components/Drawer'
 	import TableView from '@/components/TableView'
 	import api from '@/common/js/api'
 	import DateFormat from '@/common/js/DateFormat'
@@ -70,7 +65,6 @@
 		name: 'index',
 		components: {
 			NavTem,
-			Drawer,
 			Loop,
 			TableView
 		},
@@ -119,28 +113,13 @@
 			},
 
 			showDrawer() {
-				let themes = sessionStorage.getItem('themes')
-				if (themes) {
-					this.themes = JSON.parse(themes);
-				} else {
-					api.getThemes().then(
-						(res) => {
-							console.log(res.data)
-							this.themes = res.data.others
-							sessionStorage.setItem('themes', JSON.stringify(res.data.others));
-							this.drawer_show = true;
-							document.body.classList.add('openLayer')
-						},
-						(err) => {
-							console.log(err)
-						}
-					)
-				}
-				this.drawer_show = true;
+				console.log(this.$parent)
+				console.log("收到请回答")
+				this.$emit('showDrawer');
 
 			},
 			hideDrawer() {
-				this.drawer_show = false;
+				this.$emit('hideDrawer');
 				document.body.classList.remove('openLayer')
 			},
 			onScroll(event) {
@@ -180,7 +159,7 @@
 </script>
 
 <style lang="less">
-	@import "../../node_modules/element-ui/lib/theme-default/index.css";
+	@import "../../../node_modules/element-ui/lib/theme-default/index.css";
 
 	#app {
 		font-family: 'Avenir', Helvetica, Arial, sans-serif;

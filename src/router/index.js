@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '@/views/Index'
-import Theme from '@/views/Theme'
+import Main from '@/views/Main'
+import Index from '@/views/index/Index'
+import Theme from '@/views/index/Theme'
 import Detail from '@/views/Detail'
 import Editors from '@/views/Editors'
+// import IndexComponent
 
 Vue.use(Router)
 
@@ -13,14 +15,26 @@ export default new Router({
 	routes: [
 		{
 			path: '/',
-			name: 'index',
-			component: Index
+			component: Main,
+			children: [
+				{
+					path: "/",
+					name: "index",
+					component: Index
+				},
+				{
+					path: '/themes/:id',
+					name: 'theme',
+					component: Theme
+				}
+			]
+
 		},
-		{
-			path: "/themes/:id",
-			name: 'theme',
-			component: Theme
-		},
+		// {
+		// 	path: "/themes/:id",
+		// 	name: 'theme',
+		// 	component: Theme
+		// },
 		{
 			path: '/detail/:id',
 			name: 'detail',
