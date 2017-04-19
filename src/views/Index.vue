@@ -1,6 +1,5 @@
-)
 <template>
-	<div id="app">
+	<div id="app" class="scrollWrapper">
 		<!-- 导航 -->
 		<!--<nav-bar v-on:drawer="drawerHandle"></nav-bar>-->
 		<nav-tem :isIndex="true">
@@ -127,6 +126,7 @@
 							this.themes = res.data.others
 							sessionStorage.setItem('themes', JSON.stringify(res.data.others));
 							this.drawer_show = true;
+							document.body.classList.add('openLayer')
 						},
 						(err) => {
 							console.log(err)
@@ -138,6 +138,7 @@
 			},
 			hideDrawer() {
 				this.drawer_show = false;
+				document.body.classList.remove('openLayer')
 			},
 			onScroll(event) {
 //				console.log(event);

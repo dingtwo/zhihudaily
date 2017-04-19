@@ -25,7 +25,7 @@ export default {
 		display: flex;
 		width: 100%;
 		flex-direction: row;
-		background-color: #00a2ed;
+		background-color: rgba(0, 162, 237, 0.91);
 		height: 60px;
 		align-items: center;
 		justify-content: space-between;
@@ -33,6 +33,7 @@ export default {
 		position: fixed;
 		top: 0;
 		color: #ffffff;
+		/*box-shadow: 1px 3px 3px #ccc;*/
 		/*display: none;*/
 		.flex{
 			display: flex;
@@ -69,7 +70,7 @@ export default {
 			margin-right: 5px;
 		}
 		.title{
-			font-size: 20px;
+			font-size: 18px;
 		}
 		.more {
 			background: url("../assets/more.png") 0 0 no-repeat;

@@ -3,6 +3,19 @@ body {
 	padding: 0;
 }
 
+html, body, .scrollWrapper {
+	height: 100%;
+	overflow: hidden;
+}
+
+.scrollWrapper {
+	-webkit-overflow-scrolling: touch;
+	overflow-y: auto;
+}
+
+body.openLayer .scrollWrapper {
+	-webkit-overflow-scrolling: auto;
+}
 .clearfix{
 	display: inline-block;
 }
