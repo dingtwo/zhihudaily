@@ -53,12 +53,15 @@
 	}
 	//检测滚动条是否滚动到页面底部
 	function isScrollToPageBottom() {
-		//文档高度
-		var documentHeight = document.documentElement.offsetHeight;
+		//容器高度
+		var documentHeight = document.querySelector('.scrollWrapper').scrollHeight;
+		//视窗高度
 		var viewPortHeight = getViewportSize().h;
-		var scrollHeight = window.pageYOffset ||
-			document.documentElement.scrollTop ||
-			document.body.scrollTop || 0;
+//		var scrollHeight = window.pageYOffset ||
+//			document.documentElement.scrollTop ||
+//			document.body.scrollTop || 0;
+		//滑动高度
+		var scrollHeight = document.querySelector('.scrollWrapper').scrollTop || 0
 
 		return documentHeight - viewPortHeight - scrollHeight < 20;
 	}
@@ -142,9 +145,10 @@
 			},
 			onScroll(event) {
 //				console.log(event);
-				console.log(document.body.scrollTop + 60);
-				console.log(document.documentElement.clientHeight)
-				console.log(this.lastDate)
+				let scrollWrap = document.querySelector('.scrollWrapper');
+				console.log(scrollWrap.scrollTop);
+				console.log(document.querySelector('.scrollWrapper').clientHeight)
+//				console.log(this.lastDate)
 //				if ((window.document.body.offsetHeight + window.document.body.scrollTop) + 100 > window.document.body.scrollHeight && !this.loading) {
 				if (isScrollToPageBottom() && !this.loading) {
 					console.log('到底了')
@@ -161,7 +165,7 @@
 				// 高度直接为0
 			}
 			next(vm => {
-				window.addEventListener('scroll', vm.onScroll, false);
+				document.querySelector('.scrollWrapper').addEventListener('scroll', vm.onScroll, false);
 //				console.log(vm)
 			});
 

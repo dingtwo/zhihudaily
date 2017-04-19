@@ -1,5 +1,5 @@
 <template>
-	<div class="scrollWrapper">>
+	<div class="scrollWrapper">
 		<!--主题{{this.$route.params.id}}-->
 		<nav-tem>
 			<span class="left" slot="left">
