@@ -49,6 +49,33 @@ mounted() {
 
 <img src="https://sfault-image.b0.upaiyun.com/672/528/672528916-58f5b7bf7e851" />
 
+xx的结果是一个DOM元素的集合, 类数组对象, length是1, 第一个元素就是我想要的东西, 然而下一行打印的`xx[0]`却是`undefined`
+这个地方到现在也没有搞明白, 现在可以确定的是在代码里无法拿个这个DOM元素, 那可能是因为在mounted方法中, vue组件的结构挂载完毕了, 但是由v-html的内容只是以字符串的形式添加进去的, 可能此时完整的DOM还没有load结束,
+所以把获取这个结构的方法放在setTimeout(0)里, 在事件队列的最后获取
+
+``` javascript
+mounted() {
+	setTimeout(function () {
+		let xx = this.$el.getElementsByClassName('img-place-holder')
+        console.log(xx)
+        console.log(xx[0])
+	}, 0)
+}
+```
+
+第一次成功的获取到了, 然而发现有时候能获取有时候不能获取, 由于html是由ajax异步请求的, 所以可能当前ajax的结果还没有返回, 解决方法是在created方法中给ajax的promise设置一个变量, 然后在mounted方法中执行
+
+``` javascript
+this.promise.then(
+	() => {
+		setTimeout(function () {
+			let placeholder1 = _this.$el.getElementsByClassName('img-place-holder')[0]
+			console.log(placeholder1)
+			placeholder1.style.backgroundImage = "url(" + _this.proxyImg(_this.data.image) + ")";
+		}, 0)
+	})
+```
+
 
 
 
