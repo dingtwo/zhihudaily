@@ -71,10 +71,13 @@
 				this.$emit('hideDrawer')
 			},
 			toIndex() {
-				this.hideClick()
-				if (!this.$route.path === '/') {
+			    console.log(this.$route.path === '/')
+				this.hideClick();
+
+				if (this.$route.path !== '/') {
+			        console.log('应该跳')
 					this.$router.push({
-						name: 'index'
+						path: "/"
 					})
 				}
 			},
@@ -141,6 +144,7 @@
 				}
 			}
 			li {
+				cursor: pointer;
 				padding: 12px;
 				font-weight: 500;
 				color: #1F1F1F;

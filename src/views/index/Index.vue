@@ -1,5 +1,5 @@
 <template>
-	<div id="app" class="scrollWrapper">
+	<div id="all">
 		<!-- 导航 -->
 		<!--<nav-bar v-on:drawer="drawerHandle"></nav-bar>-->
 		<nav-tem :isIndex="true">
@@ -116,6 +116,7 @@
 				console.log(this.$parent)
 				console.log("收到请回答")
 				this.$emit('showDrawer');
+				document.body.classList.add('openLayer')
 
 			},
 			hideDrawer() {
@@ -135,9 +136,9 @@
 				}
 			}
 		},
-
 		beforeRouteEnter(to, from, next)
 		{
+
 			if (from.name === 'detail') {
 				// 使用保存的高度
 			} else {
@@ -146,22 +147,35 @@
 			next(vm => {
 				document.querySelector('.scrollWrapper').addEventListener('scroll', vm.onScroll, false);
 //				console.log(vm)
+
 			});
 
+		},
+		beforeRouteUpdate (to, from, next) {
+			// 在当前路由改变，但是该组件被复用时调用
+			// 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+			// 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+			// 可以访问组件实例 `this`
+			console.log('路过主页')
+			console.log('缓存还在吗----')
+			console.log(vm.dataSource)
+			next();
 		}
 		,
 		beforeRouteLeave(to, from, next)
 		{
-			window.removeEventListener('scroll', this.onScroll, false);
+			document.querySelector('.scrollWrapper').removeEventListener('scroll', this.onScroll, false);
 			next();
 		}
+
+
 	}
 </script>
 
 <style lang="less">
 	@import "../../../node_modules/element-ui/lib/theme-default/index.css";
 
-	#app {
+	#all {
 		font-family: 'Avenir', Helvetica, Arial, sans-serif;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;

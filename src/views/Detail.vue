@@ -89,7 +89,7 @@
 			},
 			removeStyleLink() {
 				let css = document.querySelector('#css')
-				document.querySelector('head').removeChild(css);
+				css && document.querySelector('head').removeChild(css);
 			},
 			proxyImg: function (str) {
 				return str.replace(/^https?:\/\/(?=pic)/, 'https://images.weserv.nl/?url=');

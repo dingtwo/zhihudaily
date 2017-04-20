@@ -1,5 +1,5 @@
 <template>
-	<div class="scrollWrapper">
+	<div>
 		<!--主题{{this.$route.params.id}}-->
 		<nav-tem>
 			<span class="left" slot="left">
@@ -53,7 +53,9 @@
 		},
 		data() {
 			return {
-				theme: {},
+				theme: {
+				    background: ""
+				},
 				themes: [],
 				loading: true,
 				dataSource: {

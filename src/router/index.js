@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Main from '@/views/Main'
+import Enter from '@/views/Enter'
 import Index from '@/views/index/Index'
 import Theme from '@/views/index/Theme'
 import Detail from '@/views/Detail'
@@ -15,7 +15,7 @@ export default new Router({
 	routes: [
 		{
 			path: '/',
-			component: Main,
+			component: Enter,
 			children: [
 				{
 					path: "/",

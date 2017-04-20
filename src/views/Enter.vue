@@ -1,5 +1,5 @@
 <template>
-    <div >
+    <div class="scrollWrapper">
 		<!-- 子路由 -->
 		<router-view @showDrawer="showDrawer"> </router-view>
 
@@ -10,9 +10,9 @@
 
 <script>
 	import Drawer from '@/components/Drawer'
-
+	import api from '@/common/js/api'
     export default {
-        name: "main",
+        name: "enter",
 		data() {
           	return {
 				drawer_show: false,

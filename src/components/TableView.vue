@@ -1,6 +1,6 @@
 <template>
 	<!-- 仿tableView, headerView, footerView cell -->
-	<div>
+	<div class="table-view">
 		<div class="section" v-for="section in dataSource.sections">
 			<div class="header-view" @click="toEditors">
 				<span class="header-title">{{ section.header }}</span>
@@ -55,6 +55,9 @@
 </script>
 
 <style lang="less" scoped>
+	.table-view{
+		background-color: #f3f3f3;
+	}
 	.section {
 		background-color: #f3f3f3;
 	}
