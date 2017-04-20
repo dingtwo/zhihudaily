@@ -43,32 +43,28 @@
 	export default {
 		name: 'drawer',
 		props: {
-			drawer_show: {
-				type: Boolean,
-				default: false
-			},
-			themes: {
-				type: Array
-			}
+
 		},
 		data() {
 			return {
-				show: false,
 				showMask: false
 			}
 		},
 		created() {
 		},
 		computed: {
-			show: function () {
-				return this.$props.drawer_show
+			drawer_show() {
+			    return this.$store.state.showDrawer
 			},
+			themes() {
+			    return this.$store.state.themes
+			}
 		},
 		components: {},
 
 		methods: {
 			hideClick() {
-				this.$emit('hideDrawer')
+				this.$store.commit("hide")
 			},
 			toIndex() {
 			    console.log(this.$route.path === '/')

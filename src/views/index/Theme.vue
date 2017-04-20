@@ -54,7 +54,7 @@
 		data() {
 			return {
 				theme: {
-				    background: ""
+					background: ""
 				},
 				themes: [],
 				loading: true,
@@ -73,7 +73,7 @@
 			// 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
 			// 可以访问组件实例 `this`
 			console.log('全体注意, 要跳转了');
-			this.$emit('hideDrawer')
+			this.$store.commit("hide")
 			this.dataSource.sections = [];
 			this.getData(to.path.substr(8));
 			next();
@@ -99,8 +99,7 @@
 			},
 			// TODO: 这个地方应该放在子组件内
 			showDrawer() {
-
-			    this.$emit('showDrawer');
+				this.$store.commit("show")
 			}
 		},
 		components: {

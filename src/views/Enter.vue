@@ -1,56 +1,31 @@
 <template>
-    <div class="scrollWrapper">
+	<!-- 入口 -->
+	<div class="scrollWrapper">
 		<!-- 子路由 -->
-		<router-view @showDrawer="showDrawer"> </router-view>
+		<router-view></router-view>
 
 		<!-- 抽屉 -->
-		<drawer :drawer_show="drawer_show" :themes="themes" @hideDrawer="hideDrawer"></drawer>
+		<drawer></drawer>
 	</div>
 </template>
 
 <script>
 	import Drawer from '@/components/Drawer'
 	import api from '@/common/js/api'
-    export default {
-        name: "enter",
+	export default {
+		name: "enter",
 		data() {
-          	return {
-				drawer_show: false,
+			return {
+//				drawer_show: false,
 				themes: []
 			}
 		},
 		components: {
-            Drawer
+			Drawer
 		},
 		methods: {
-			showDrawer() {
-			    console.log('收到')
-				let themes = sessionStorage.getItem('themes')
-				if (themes) {
-					this.themes = JSON.parse(themes);
-					this.drawer_show = true;
-				} else {
-					api.getThemes().then(
-						(res) => {
-//							console.log(res.data)
-							this.themes = res.data.others
-							sessionStorage.setItem('themes', JSON.stringify(res.data.others));
-
-						},
-						(err) => {
-							console.log(err)
-						}
-					).then(() => {
-						this.drawer_show = true;})
-				}
-
-				},
-			//子组件中派发事件, 这里接受
-			hideDrawer() {
-				this.drawer_show = false;
-			}
 		}
-    }
+	}
 </script>
 
 <style>

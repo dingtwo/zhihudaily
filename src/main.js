@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './views/App'
 import router from './router'
 import Vuex from 'Vuex'
+import store from './common/js/store'
 
 import './common/css/base.css'
 // import '../node_modules/bootstrap/dist/css/bootstrap.css'
@@ -19,11 +20,12 @@ Vue.filter('proxyImg', (url) => {
 
 
 /* eslint-disable no-new */
+
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })
-Vue.use(Vuex);
 

@@ -113,16 +113,14 @@
 			},
 
 			showDrawer() {
-				console.log(this.$parent)
-				console.log("收到请回答")
-				this.$emit('showDrawer');
+				this.$store.commit("show")
 				document.body.classList.add('openLayer')
 
 			},
-			hideDrawer() {
-				this.$emit('hideDrawer');
-				document.body.classList.remove('openLayer')
-			},
+//			hideDrawer() {
+//			    this.$store.commit("hide")
+//				document.body.classList.remove('openLayer')
+//			},
 			onScroll(event) {
 //				console.log(event);
 				let scrollWrap = document.querySelector('.scrollWrapper');
