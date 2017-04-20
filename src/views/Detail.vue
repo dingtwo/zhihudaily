@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="scrollWrapper">
 		<nav-tem>
 		<span slot="left" class="left">
 			<i class="back" @click="$router.go(-1)"></i>
